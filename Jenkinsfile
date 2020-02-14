@@ -2,7 +2,7 @@
 node {
    stage('Git Clone') { 
       // Get some code from a GitHub repository
-      git 'https://github.com/walidsaad/macen-jenkins-pipeline.git'
+      git 'https://github.com/walidsaad/maven-jenkins-pipeline.git'
    }
         
    stage('Build') {
