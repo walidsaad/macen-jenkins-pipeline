@@ -35,16 +35,16 @@ pipeline {
    stage('Generate Maven Artifact') {
    steps {
    echo "Run Docker Container and Generate Artifcat"
-   sh "docker run --rm -d -v /home/stagiaire/.m2:/root/.m2 -w /app/training-webapp/ --name test-maven  mymaven:v2.0 mvn clean install"
+   sh "docker run --rm -d -v /home/stagiaire/.m2:/root/.m2 -w /app/training-webapp/ --name test-maven  ${MAVEN_IMAGE_NAME}:${DOCKER_TAG} mvn clean install"
    }
    }
     stage('Deploy Artifcat') {
     steps {
       // Run the tomcat deploy
    echo "Build Tomcat Image with Artifact"
-   sh "docker build -t=\"mytomcat:v2.0\" ./tomcat/"
+   sh "docker build -t=\"${TOMCAT_IMAGE_NAME}:${DOCKER_TAG}\" ./tomcat/"
    echo "Run Tomcat Container"
-   sh "docker run --rm -d -v /home/stagiaire/.m2/repository/com/mycompany/app/training-webapp/1.0-SNAPSHOT/:/usr/local/tomcat/webapps/ -p 8888:8080 --name maven-webapp mytomcat:v2.0"
+   sh "docker run --rm -d -v /home/stagiaire/.m2/repository/com/mycompany/app/training-webapp/1.0-SNAPSHOT/:/usr/local/tomcat/webapps/ -p ${TEST_LOCAL_PORT}:8080 --name maven-webapp ${TOMCAT_IMAGE_NAME}:${DOCKER_TAG}"
    }
    }
 }
