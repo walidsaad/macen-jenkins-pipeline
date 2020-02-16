@@ -18,6 +18,7 @@ node {
    stage('Git Clone') { 
       // Get some code from a GitHub repository
       git 'https://github.com/walidsaad/maven-jenkins-pipeline.git'
+       echo "GIT_BRANCH is ${GIT_BRANCH}"
    }
         
    stage('Build Docker Maven Image') {
