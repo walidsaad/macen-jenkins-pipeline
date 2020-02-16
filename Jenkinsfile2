@@ -17,6 +17,7 @@ pipeline {
     
     
     agent { node { label 'master' } }
+    stages {
 
    stage('Git Clone') { 
       // Get some code from a GitHub repository
@@ -40,5 +41,5 @@ pipeline {
    echo "Run Tomcat Container"
    sh "docker run --rm -d -v /home/stagiaire/.m2/repository/com/mycompany/app/training-webapp/1.0-SNAPSHOT/:/usr/local/tomcat/webapps/ -p 8888:8080 --name maven-webapp mytomcat:v2.0"
    }
-
+}
 }
