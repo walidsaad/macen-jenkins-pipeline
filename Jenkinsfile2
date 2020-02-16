@@ -29,7 +29,7 @@ pipeline {
    steps {
       // Run the maven docker build
    echo "Build Docker Maven Image With Sample WebApp"
-   sh "docker build -t=\"${MAVEN_IMAGE_NAME}:${DOCKER_TAG}\" ./maven/"
+   sh "docker build -t=\"${MAVEN_IMAGE_NAME}:v2.0\" ./maven/"
    }
    }
    stage('Generate Maven Artifact') {
