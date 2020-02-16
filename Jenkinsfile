@@ -10,7 +10,7 @@ node {
    echo "Build Docker Maven Image With Sample WebApp"
    sh "docker build -t=\"mymaven:v2.0\" ./maven/"
    echo "Run Docker Container and Generate Artifcat"
-   sh "docker run -it -v /home/stagiaire/.m2\":/root/.m2 -w /app/training-webapp/ --name test-maven  mymaven:v2.0 mvn clean install"
+   sh "docker run -it -v /home/stagiaire/.m2:/root/.m2 -w /app/training-webapp/ --name test-maven  mymaven:v2.0 mvn clean install"
       
    
    }
