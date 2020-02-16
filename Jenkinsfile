@@ -7,12 +7,21 @@ node {
         
    stage('Build') {
       // Run the maven docker build
-   echo "Build Docker Maven App"
+   echo "Build Docker Maven Image With Sample WebApp"
+   sh "docker build -t=\"mymaven:v1.0\" ./maven/"
+   echo "Run Docker Container and Generate Artifcat"
+   sh "docker run -it -v /home/stagiaire/.m2\":/root/.m2 -w /app/training-webapp/ --name test-maven  mymaven:v1.0 mvn clean install"
+      
+   
    }
   
-     stage('Deploy') {
+     stage('Deploy Artifcat') {
       // Run the tomcat deploy
-   echo "Run Tomcat with Artifact"
+   echo "Build Tomcat Image with Artifact"
+   sh "cp /home/stagiaire/.m2/repository/com/mycompany/app/training-webapp/1.0-SNAPSHOT/training-webapp-1.0-SNAPSHOT.war ./tomcat"
+   sh "docker build -t="mytomcat:v1.0" ./tomcat/"
+   echo "Run Tomcat Container"
+   docker run -d -p 8888:8080 --name maven-webapp mytomcat:v1.0
    }
 
 }
